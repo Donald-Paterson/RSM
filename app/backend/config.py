@@ -11,6 +11,13 @@ class Settings(BaseSettings):
     debug_root: Path = output_root / "debug"
     preprocess_root: Path = output_root / "preprocessed"
 
+    https_host: str = "localhost"
+    https_port: int = 8000
+    process_pool_workers: int = 2
+    max_concurrent_inspections: int = 4
+    ssl_certfile: Path = project_root / "localhost+1.pem"
+    ssl_keyfile: Path = project_root / "localhost+1-key.pem"
+
     enable_alignment: bool = True
     enable_quadrants: bool = True
     enable_preprocessing: bool = True
@@ -43,4 +50,7 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+
+
 

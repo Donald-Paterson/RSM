@@ -183,9 +183,6 @@ class RSMPipeline:
             prediction=prediction,
             defect_count=len(defect_boxes),
             defect_bounding_boxes=defect_boxes,
-            golden_roi_path=golden_path,
-            test_roi_path=test_path,
-            diff_map_path=diff_path,
         )
 
     def _to_image_boxes(
@@ -235,3 +232,4 @@ class RSMPipeline:
             4: (mid_w, mid_h),
         }
         return offsets[quadrant]
+

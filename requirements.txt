@@ -6,3 +6,6 @@ numpy
 scikit-image
 pydantic
 pydantic-settings
+gunicorn
+uvicorn-worker
+

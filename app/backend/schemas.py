@@ -39,9 +39,6 @@ class RoiResult(BaseModel):
     prediction: str
     defect_count: int = 0
     defect_bounding_boxes: List[DefectBoundingBox] = Field(default_factory=list)
-    golden_roi_path: Optional[str] = None
-    test_roi_path: Optional[str] = None
-    diff_map_path: Optional[str] = None
 
 
 class InspectionResponse(BaseModel):
@@ -49,7 +46,7 @@ class InspectionResponse(BaseModel):
     position: str
     test_image_path: str
     aligned_annotated_test_image_path: Optional[str] = None
-    aligned_annotated_test_image_url: Optional[str] = None
+    annotated_image_base64: Optional[str] = None
     bounding_box_coordinate_system: str = "aligned_test_image_pixels_xyxy_exclusive"
     overall_prediction: str
     total_rois: int
@@ -59,3 +56,5 @@ class InspectionResponse(BaseModel):
     defect_count: int = 0
     defect_bounding_boxes: List[DefectBoundingBox] = Field(default_factory=list)
     results: List[RoiResult]
+
+

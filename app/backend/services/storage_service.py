@@ -64,6 +64,8 @@ class StorageService:
 
     async def _save_image(self, file: UploadFile, path: Path) -> Path:
         data = await file.read()
+        await file.seek(0)
+
         image = cv2.imdecode(np.frombuffer(data, np.uint8), cv2.IMREAD_COLOR)
 
         if image is None:
@@ -77,3 +79,4 @@ class StorageService:
         if not normalized or normalized in {".", ".."}:
             raise HTTPException(status_code=400, detail=f"Invalid {field_name}")
         return normalized
+
