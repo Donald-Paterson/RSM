@@ -15,6 +15,9 @@ from app.backend.services.storage_service import StorageService
 
 storage_service = StorageService()
 
+def encode_image_base64(image_path: str) -> str:
+    return base64.b64encode(Path(image_path).read_bytes()).decode("ascii")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -74,6 +77,10 @@ async def predict_image(
     position: str = Form(...),
     file: UploadFile = File(...),
 ) -> InspectionResponse:
+    # Validate readiness in the API process so expected HTTP errors retain
+    # their status codes instead of crossing the process-pool boundary.
+    storage_service.get_ready_position_files(projectid, position)
+
     test_path = await storage_service.save_test_image(projectid, position, file)
     loop = asyncio.get_running_loop()
 
@@ -87,10 +94,13 @@ async def predict_image(
         )
 
     annotated_path = response_data["aligned_annotated_test_image_path"]
-    response_data["annotated_image_base64"] = base64.b64encode(
-        Path(annotated_path).read_bytes()
-    ).decode("ascii")
+    response_data["annotated_image_base64"] = await asyncio.to_thread(
+        encode_image_base64,
+        annotated_path,
+    )
 
     return InspectionResponse.model_validate(response_data)
+
+
 
 

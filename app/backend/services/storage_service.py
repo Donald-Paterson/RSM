@@ -13,8 +13,14 @@ class StorageService:
         settings.storage_root.mkdir(parents=True, exist_ok=True)
         settings.debug_root.mkdir(parents=True, exist_ok=True)
 
+    def position_key(self, project_id: str, position: str) -> Path:
+        return Path(
+            self._safe_segment(project_id, "project_id"),
+            self._safe_segment(position, "position"),
+        )
+
     def position_root(self, project_id: str, position: str) -> Path:
-        path = settings.storage_root / self._safe_segment(project_id, "project_id") / self._safe_segment(position, "position")
+        path = settings.storage_root / self.position_key(project_id, position)
         path.mkdir(parents=True, exist_ok=True)
         return path
 
@@ -79,4 +85,5 @@ class StorageService:
         if not normalized or normalized in {".", ".."}:
             raise HTTPException(status_code=400, detail=f"Invalid {field_name}")
         return normalized
+
 

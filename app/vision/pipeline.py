@@ -28,6 +28,7 @@ class RSMPipeline:
         self,
         project_id: str,
         position: str,
+        artifact_scope: str,
         golden_image_path: Path,
         test_image_path: Path,
         annotation_path: Path,
@@ -42,7 +43,6 @@ class RSMPipeline:
 
         results = []
         image_defect_boxes = []
-        artifact_scope = f"{project_id}/{position}"
 
         for roi_index, (golden_data, test_data) in enumerate(zip(golden_rois, test_rois)):
             golden_roi = golden_data["roi"]
@@ -232,4 +232,7 @@ class RSMPipeline:
             4: (mid_w, mid_h),
         }
         return offsets[quadrant]
+
+
+
 

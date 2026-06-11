@@ -15,10 +15,11 @@ keepalive = int(os.getenv("RSM_GUNICORN_KEEPALIVE", "5"))
 # Do not preload the app: each worker must own its ProcessPoolExecutor lifecycle.
 preload_app = False
 
-certfile = os.getenv("RSM_SSL_CERTFILE", str(PROJECT_ROOT / "localhost+1.pem"))
-keyfile = os.getenv("RSM_SSL_KEYFILE", str(PROJECT_ROOT / "localhost+1-key.pem"))
+certfile = os.getenv("RSM_SSL_CERTFILE", str(PROJECT_ROOT / "certs" / "localhost+2.pem"))
+keyfile = os.getenv("RSM_SSL_KEYFILE", str(PROJECT_ROOT / "certs" / "localhost+2-key.pem"))
 
 accesslog = "-"
 errorlog = "-"
 loglevel = os.getenv("RSM_GUNICORN_LOG_LEVEL", "info")
 capture_output = True
+

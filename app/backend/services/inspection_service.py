@@ -23,6 +23,7 @@ class InspectionService:
         pipeline_output = self.pipeline.run(
             project_id=project_id,
             position=position,
+            artifact_scope=self.storage.position_key(project_id, position).as_posix(),
             golden_image_path=golden_path,
             test_image_path=test_image_path,
             annotation_path=annotation_path,
@@ -53,4 +54,6 @@ class InspectionService:
             defect_bounding_boxes=pipeline_output.defect_bounding_boxes,
             results=results,
         )
+
+
 
