@@ -1,0 +1,12 @@
+centre_plate_presence
+gear2_presence
+centre_screw_presence
+centre_pin_presence
+gear1_presence
+side_screw_absence
+slanting_pin_presence
+side_screw_presence
+gear3_presence
+gear3_absence
+gear2_absence
+gear1_absence
